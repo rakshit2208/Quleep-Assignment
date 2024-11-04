@@ -15,6 +15,21 @@ exports.getPosts = async (req, res) => {
     res.json(posts);
 };
 
+exports.getMyPosts = async (req, res) => {
+    try {
+        // Get the user ID from the authenticated token
+        const userId = req.user.userId;
+
+        // Find posts created by this user
+        const myPosts = await Post.find({ author: userId });
+        
+        res.json(myPosts);
+    } catch (error) {
+        console.error("Error fetching user posts:", error);
+        res.status(500).json({ error: "Failed to fetch posts" });
+    }
+};
+
 exports.getPost = async (req, res) => {
     const post = await Post.findById(req.params.id).populate("author", "username");
     if (!post) return res.status(404).json({ error: "Post not found" });

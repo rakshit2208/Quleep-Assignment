@@ -15,6 +15,10 @@ export const getPosts = () => axios.get(`${API_URL}/posts`);
 
 export const getPost = (id) => axios.get(`${API_URL}/posts/${id}`);
 
+export const getMyPosts = (token) => axios.get(`${API_URL}/posts/my-posts`, {
+    headers: { Authorization: `Bearer ${token}` }
+});
+
 export const updatePost = (id, postData, token) => axios.put(`${API_URL}/posts/${id}`, postData, {
     headers: { Authorization: `Bearer ${token}` }
 });
