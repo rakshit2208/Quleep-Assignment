@@ -53,7 +53,7 @@ function PostList() {
                                     </div>
                                     <div className="text-right">
                                         <p className="text-xs">
-                                            Last updated:
+                                            Created at:
                                         </p>
                                         <p className="text-xs font-medium">
                                             {formatDate(post.updatedAt)}

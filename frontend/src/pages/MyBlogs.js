@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { deletePost, getMyPosts } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function MyBlogs() {
     const [myPosts, setMyPosts] = useState([]);
@@ -25,32 +26,34 @@ function MyBlogs() {
         const token = localStorage.getItem("token");
         try {
             await deletePost(postId, token);
-            setMyPosts(myPosts.filter(post => post._id !== postId)); // Update the list after deletion
+            setMyPosts(myPosts.filter(post => post._id !== postId)); 
+            toast.success("Post deleted successfully!");
         } catch (error) {
             console.error("Failed to delete post:", error);
+            toast.error("Failed to delete post. Please try again.");
         }
     };
 
     return (
         <div>
+            <Toaster position="top-center" reverseOrder={false} />
             <h2 className="text-2xl font-bold mb-4 text-center pt-5">My Blogs</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pl-4 pr-4">
                 {myPosts.map(post => (
                     <div key={post._id} className="bg-white p-4 rounded-xl shadow-2xl">
                         <h3 className="text-lg font-semibold">{post.title}</h3>
                         <p className="text-gray-600 mb-2">{post.content}</p>
-                        <div className="flex justify-between">
-                            {/* Edit and Delete Buttons */}
-                            {/* <button className="text-blue-500 hover:underline">Edit</button> */}
+                        <div className="flex justify-between mt-4">
+                            {/* Professional Edit and Delete Buttons */}
                             <button
                                 onClick={() => navigate(`/edit-post/${post._id}`, { state: { isEditMode: true, existingPost: post } })}
-                                className="text-blue-500 hover:underline"
+                                className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-200 font-medium"
                             >
                                 Edit
                             </button>
                             <button
                                 onClick={() => handleDelete(post._id)}
-                                className="text-red-500 hover:underline"
+                                className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition duration-200 font-medium"
                             >
                                 Delete
                             </button>

@@ -1,10 +1,18 @@
 // src/components/Header.js
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate(); // For navigation after logout
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); 
+    toast.success("Successfully logged out!"); 
+    navigate("/login"); 
+  };
 
   return (
     <header className="bg-white shadow-lg">
@@ -25,97 +33,63 @@ function Header() {
         <div className="hidden md:flex space-x-6">
           <Link
             to="/create-blogs"
-            className={`font-medium ${
-              location.pathname === "/create-blogs"
-                ? "text-blue-500"
-                : "text-gray-700 hover:text-blue-500"
-            }`}
+            className={`font-medium ${location.pathname === "/create-blogs" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
           >
             Create Blogs
           </Link>
           <Link
             to="/my-blogs"
-            className={`font-medium ${
-              location.pathname === "/my-blogs"
-                ? "text-blue-500"
-                : "text-gray-700 hover:text-blue-500"
-            }`}
+            className={`font-medium ${location.pathname === "/my-blogs" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
           >
             My Blogs
           </Link>
           <Link
             to="/profile"
-            className={`font-medium ${
-              location.pathname === "/profile"
-                ? "text-blue-500"
-                : "text-gray-700 hover:text-blue-500"
-            }`}
+            className={`font-medium ${location.pathname === "/profile" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
           >
             Profile
           </Link>
           <Link
             to="/all-blogs"
-            className={`font-medium ${
-              location.pathname === "/all-blogs"
-                ? "text-blue-500"
-                : "text-gray-700 hover:text-blue-500"
-            }`}
+            className={`font-medium ${location.pathname === "/all-blogs" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
           >
             All Blogs
           </Link>
           <button
             className="font-medium text-gray-700 hover:text-blue-500"
-            onClick={() => {
-            }}
+            onClick={handleLogout}
           >
             Logout
           </button>
         </div>
 
-       
         {isMobileMenuOpen && (
           <div className="absolute top-16 left-0 w-full bg-white shadow-lg md:hidden">
             <div className="flex flex-col items-start space-y-4 p-6">
               <Link
                 to="/create-blogs"
-                className={`font-medium ${
-                  location.pathname === "/create-blogs"
-                    ? "text-blue-500"
-                    : "text-gray-700 hover:text-blue-500"
-                }`}
+                className={`font-medium ${location.pathname === "/create-blogs" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Create Blogs
               </Link>
               <Link
                 to="/my-blogs"
-                className={`font-medium ${
-                  location.pathname === "/my-blogs"
-                    ? "text-blue-500"
-                    : "text-gray-700 hover:text-blue-500"
-                }`}
+                className={`font-medium ${location.pathname === "/my-blogs" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 My Blogs
               </Link>
               <Link
                 to="/profile"
-                className={`font-medium ${
-                  location.pathname === "/profile"
-                    ? "text-blue-500"
-                    : "text-gray-700 hover:text-blue-500"
-                }`}
+                className={`font-medium ${location.pathname === "/profile" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Profile
               </Link>
               <Link
                 to="/all-blogs"
-                className={`font-medium ${
-                  location.pathname === "/all-blogs"
-                    ? "text-blue-500"
-                    : "text-gray-700 hover:text-blue-500"
-                }`}
+                className={`font-medium ${location.pathname === "/all-blogs" ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 All Blogs
@@ -123,7 +97,7 @@ function Header() {
               <button
                 className="font-medium text-gray-700 hover:text-blue-500"
                 onClick={() => {
-                  
+                  handleLogout(); // Call handleLogout on mobile menu
                   setIsMobileMenuOpen(false);
                 }}
               >

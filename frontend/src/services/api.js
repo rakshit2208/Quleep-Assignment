@@ -26,3 +26,20 @@ export const updatePost = (id, postData, token) => axios.put(`${API_URL}/posts/$
 export const deletePost = (id, token) => axios.delete(`${API_URL}/posts/${id}`, {
     headers: { Authorization: `Bearer ${token}` }
 });
+
+
+export const updateProfile = (formData, token) =>
+    axios.put(`${API_URL}/user/profile`, formData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    export const fetchUserProfile = async (token) => {
+        const response = await axios.get(`${API_URL}/user/user-profile`, {
+            headers: {
+                Authorization: `Bearer ${token}`, // Include the token in the header
+            },
+        });
+        return response.data;
+    };

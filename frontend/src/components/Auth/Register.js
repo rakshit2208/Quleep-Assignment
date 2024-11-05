@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { registerUser } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { UserPlus, Mail, Lock, ArrowRight } from "lucide-react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 function Register() {
     const [formData, setFormData] = useState({ username: "", email: "", password: "" });
@@ -29,12 +29,11 @@ function Register() {
                 id: loadingToast,
             });
             
-            // Short delay before navigation for better UX
             setTimeout(() => {
                 navigate("/login");
             }, 500);
         } catch (error) {
-            // Check for specific error types
+           
             if (error.response?.data?.message?.includes('email')) {
                 toast.error('Email already exists', {
                     duration: 3000,
@@ -54,30 +53,6 @@ function Register() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            {/* Toaster component for showing notifications */}
-            <Toaster 
-                position="top-right"
-                toastOptions={{
-                    success: {
-                        style: {
-                            background: 'green',
-                            color: 'white',
-                        },
-                    },
-                    error: {
-                        style: {
-                            background: 'red',
-                            color: 'white',
-                        },
-                    },
-                    loading: {
-                        style: {
-                            background: '#3b82f6',
-                            color: 'white',
-                        },
-                    },
-                }}
-            />
             <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
                 <div>
                     <h2 className="mt-4 text-center text-3xl font-extrabold text-gray-900">
