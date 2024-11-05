@@ -32,7 +32,7 @@ function Profile() {
     const handleProfilePicChange = (e) => {
         const file = e.target.files[0];
         setProfilePic(file);
-        setPreview(URL.createObjectURL(file)); // Generate a preview URL
+        setPreview(URL.createObjectURL(file)); 
     };
 
     const handleProfileUpdate = async (e) => {
@@ -42,8 +42,10 @@ function Profile() {
         formData.append("username", username);
         formData.append("email", email);
         if (profilePic) {
-            formData.append("profilePic", profilePic); // Ensure "profilePic" matches the multer field name
+            formData.append("profilePic", profilePic); 
         }
+
+        console.log("profile formdata.........",formData);
 
         try {
             const token = localStorage.getItem("token");

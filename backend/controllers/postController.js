@@ -1,14 +1,67 @@
 const Post = require("../models/Post");
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const uploadDir = path.join(__dirname, "../public/uploads/post_pics");
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}_${file.originalname}`);
+    }
+});
+
+const upload = multer({ storage });
+
+exports.uploadMiddleware = upload.single("imageUrl");
 
 exports.createPost = async (req, res) => {
     try {
-        const post = new Post({ ...req.body, author: req.user.userId });
+
+        console.log("Request Body:", req.body); // Check req.body contents
+        console.log("File:", req.file); // Check if file is received
+        const post = new Post({
+            ...req.body,
+            author: req.user.userId,
+            imageUrl: req.file ? `/uploads/post_pics/${req.file.filename}` : null
+        });
         await post.save();
         res.status(201).json(post);
     } catch (error) {
+        console.error("Error in createPost:", error);
         res.status(500).json({ error: "Post creation failed" });
     }
 };
+
+exports.updatePost = async (req, res) => {
+    try {
+        const updatedData = { ...req.body };
+        if (req.file) updatedData.imageUrl = `/uploads/post_pics/${req.file.filename}`;
+        
+        const post = await Post.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+        if (!post) return res.status(404).json({ error: "Post not found" });
+        
+        res.json(post);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to update post" });
+    }
+};
+
+// exports.createPost = async (req, res) => {
+//     try {
+//         const post = new Post({ ...req.body, author: req.user.userId });
+//         await post.save();
+//         res.status(201).json(post);
+//     } catch (error) {
+//         res.status(500).json({ error: "Post creation failed" });
+//     }
+// };
 
 exports.getPosts = async (req, res) => {
     const posts = await Post.find().populate("author", "username").sort({ createdAt: -1 });;
@@ -36,15 +89,15 @@ exports.getPost = async (req, res) => {
     res.json(post);
 };
 
-exports.updatePost = async (req, res) => {
-    try {
-        const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!post) return res.status(404).json({ error: "Post not found" });
-        res.json(post);
-    } catch (error) {
-        res.status(500).json({ error: "Failed to update post" });
-    }
-};
+// exports.updatePost = async (req, res) => {
+//     try {
+//         const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//         if (!post) return res.status(404).json({ error: "Post not found" });
+//         res.json(post);
+//     } catch (error) {
+//         res.status(500).json({ error: "Failed to update post" });
+//     }
+// };
 
 exports.deletePost = async (req, res) => {
     const post = await Post.findByIdAndDelete(req.params.id);

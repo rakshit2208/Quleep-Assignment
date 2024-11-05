@@ -8,7 +8,7 @@ export const registerUser = (userData) => axios.post(`${API_URL}/auth/register`,
 export const loginUser = (userData) => axios.post(`${API_URL}/auth/login`, userData);
 
 export const createPost = (postData, token) => axios.post(`${API_URL}/posts`, postData, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token}`,"Content-Type": "multipart/form-data",}
 });
 
 export const getPosts = () => axios.get(`${API_URL}/posts`);
@@ -20,7 +20,7 @@ export const getMyPosts = (token) => axios.get(`${API_URL}/posts/my-posts`, {
 });
 
 export const updatePost = (id, postData, token) => axios.put(`${API_URL}/posts/${id}`, postData, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token}`,"Content-Type": "multipart/form-data",}
 });
 
 export const deletePost = (id, token) => axios.delete(`${API_URL}/posts/${id}`, {

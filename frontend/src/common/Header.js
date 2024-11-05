@@ -9,9 +9,9 @@ function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
     toast.success("Successfully logged out!"); 
     navigate("/login"); 
+    localStorage.removeItem("token"); 
   };
 
   return (

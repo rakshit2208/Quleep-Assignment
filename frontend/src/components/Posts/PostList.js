@@ -3,6 +3,8 @@ import { getPosts } from "../../services/api";
 import { Link } from "react-router-dom";
 import Navbar from "../../common/Header";
 
+const API_URL = "http://localhost:5000";
+
 function PostList() {
     const [posts, setPosts] = useState([]);
 
@@ -38,6 +40,13 @@ function PostList() {
                 {posts.length > 0 ? (
                     posts.map(post => (
                         <div key={post._id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                            {post.imageUrl && (
+                                <img 
+                                    src={post.imageUrl?`${API_URL}${post.imageUrl}` : null} 
+                                    alt={post.title} 
+                                    className="w-full h-48 object-cover rounded-lg mb-4"
+                                />
+                            )}
                             <h3 className="text-xl font-semibold text-gray-700 mb-2">
                                 {post.title}
                             </h3>

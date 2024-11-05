@@ -12,20 +12,44 @@ function PostForm() {
 
     const [title, setTitle] = useState(existingPost ? existingPost.title : "");
     const [content, setContent] = useState(existingPost ? existingPost.content : "");
+    const [imageUrl, setImageUrl] = useState(null);
 
     const navigate = useNavigate();
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImageUrl(file);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
-        const postData = { title, content };
+        
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", content);
+
+        for (const pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
+
+        
+        if (imageUrl){
+        
+            formData.append("imageUrl", imageUrl);
+            console.log("imageUrl appended to FormData:", imageUrl);
+        
+        }
+            
 
         try {
             if (isEditMode) {
-                await updatePost(id, postData, token);
+                await updatePost(id, formData, token);
                 toast.success("Post updated successfully!");
             } else {
-                await createPost(postData, token);
+
+                console.log("Formdata.........",formData);
+                await createPost(formData, token);
                 toast.success("Post created successfully!");
             }
 
@@ -47,7 +71,7 @@ function PostForm() {
                     <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
                         {isEditMode ? "Edit Post" : "Create Post"}
                     </h2>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
                         <div>
                             <label htmlFor="title" className="block text-gray-600 font-medium mb-1">
                                 Title
@@ -74,6 +98,18 @@ function PostForm() {
                                 required
                                 rows="6"
                                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="image" className="block text-gray-600 font-medium mb-1">
+                                Upload Image
+                            </label>
+                            <input
+                                type="file"
+                                id="image/*"
+                                onChange={handleImageChange}
+                                
+                                className="w-full px-4 py-2 border rounded-lg focus:outline-none transition duration-300"
                             />
                         </div>
                         <button
