@@ -45,7 +45,6 @@ function Profile() {
             formData.append("profilePic", profilePic); 
         }
 
-        console.log("profile formdata.........",formData);
 
         try {
             const token = localStorage.getItem("token");
