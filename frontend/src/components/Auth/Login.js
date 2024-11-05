@@ -33,7 +33,7 @@ function Login() {
             
             // Short delay before navigation for better UX
             setTimeout(() => {
-                navigate("/");
+                navigate("/all-blogs");
             }, 500);
         } catch (error) {
             setError("Invalid email or password. Please try again.");
