@@ -35,4 +35,4 @@ Ensure you have the following installed before setting up the application:
 
 ```bash
 git clone https://github.com/rakshit2208/Quleep-Assignment.git
-cd mern-blog-application
+cd Quleep-Assignment
