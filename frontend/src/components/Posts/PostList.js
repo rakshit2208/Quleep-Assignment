@@ -3,7 +3,9 @@ import { getPosts } from "../../services/api";
 import { Link } from "react-router-dom";
 import Navbar from "../../common/Header";
 
-const API_URL = "http://localhost:5000";
+// const API_URL = "http://localhost:5000";
+const API_URL = "https://mern-blog-apis.vercel.app";
+
 
 function PostList() {
     const [posts, setPosts] = useState([]);
