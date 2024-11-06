@@ -15,7 +15,7 @@ export const RoutePaths = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={isAuthenticated ? <Navigate to="/" /> : <Navigate to="/login" />} />
+                <Route path="/" element={isAuthenticated ? <Navigate to="/all-blogs" /> : <Navigate to="/login" />} />
 
                 <Route path="/login" element={isAuthenticated ? <Navigate to="/all-blogs" /> : <Login />} />
                 <Route path="/register" element={isAuthenticated ? <Navigate to="/all-blogs" /> : <Register />} />

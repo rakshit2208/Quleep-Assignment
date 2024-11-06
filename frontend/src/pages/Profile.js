@@ -1,7 +1,7 @@
 // src/pages/Profile.js
 import React, { useState, useEffect } from "react";
 import { updateProfile, fetchUserProfile } from "../services/api"; // Import fetchUserProfile to get user data
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const API_URL = "http://localhost:5000";
 
@@ -50,6 +50,8 @@ function Profile() {
             const token = localStorage.getItem("token");
             await updateProfile(formData, token);
             toast.success("Profile updated successfully!");
+            setEmail("");
+            setUsername("");
         } catch (error) {
             console.error("Failed to update profile:", error);
             toast.error("Failed to update profile");
@@ -57,6 +59,10 @@ function Profile() {
     };
 
     return (
+        <>
+        
+        <Toaster position="top-center" reverseOrder={false} />
+
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
             <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg">
                 <div className="flex justify-center mb-4">
@@ -116,6 +122,7 @@ function Profile() {
                 </form>
             </div>
         </div>
+        </>
     );
 }
 

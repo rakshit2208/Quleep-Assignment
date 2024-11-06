@@ -5,13 +5,13 @@ import toast from "react-hot-toast";
 
 function Header() {
   const location = useLocation();
-  const navigate = useNavigate(); // For navigation after logout
+  const navigate = useNavigate(); 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    toast.success("Successfully logged out!"); 
-    navigate("/login"); 
+    toast.success("Successfully logged out!");  
     localStorage.removeItem("token"); 
+    navigate("/login");
   };
 
   return (

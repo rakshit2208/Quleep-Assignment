@@ -24,8 +24,6 @@ exports.uploadMiddleware = upload.single("imageUrl");
 exports.createPost = async (req, res) => {
     try {
 
-        console.log("Request Body:", req.body); // Check req.body contents
-        console.log("File:", req.file); // Check if file is received
         const post = new Post({
             ...req.body,
             author: req.user.userId,
@@ -34,7 +32,7 @@ exports.createPost = async (req, res) => {
         await post.save();
         res.status(201).json(post);
     } catch (error) {
-        console.error("Error in createPost:", error);
+  
         res.status(500).json({ error: "Post creation failed" });
     }
 };
@@ -78,7 +76,7 @@ exports.getMyPosts = async (req, res) => {
         
         res.json(myPosts);
     } catch (error) {
-        console.error("Error fetching user posts:", error);
+       
         res.status(500).json({ error: "Failed to fetch posts" });
     }
 };

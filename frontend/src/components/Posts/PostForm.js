@@ -29,15 +29,13 @@ function PostForm() {
         formData.append("title", title);
         formData.append("content", content);
 
-        for (const pair of formData.entries()) {
-            console.log(`${pair[0]}: ${pair[1]}`);
-        }
+        
 
         
         if (imageUrl){
         
             formData.append("imageUrl", imageUrl);
-            console.log("imageUrl appended to FormData:", imageUrl);
+            
         
         }
             
@@ -48,7 +46,7 @@ function PostForm() {
                 toast.success("Post updated successfully!");
             } else {
 
-                console.log("Formdata.........",formData);
+                
                 await createPost(formData, token);
                 toast.success("Post created successfully!");
             }
@@ -58,7 +56,7 @@ function PostForm() {
             }, 3200); 
 
         } catch (error) {
-            console.error("Failed to submit post:", error);
+           
             toast.error("Failed to submit post. Please try again.");
         }
     };
