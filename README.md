@@ -1,4 +1,4 @@
-##MERN Blog Application
+##MERN Blog Application##
 A full-stack blog application built using the MERN stack (MongoDB, Express, React, Node.js). This application allows users to register, create posts, view all blog posts, update their profile (including profile picture upload), and perform CRUD operations on posts.
 
 Features
