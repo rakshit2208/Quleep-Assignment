@@ -34,5 +34,5 @@ Ensure you have the following installed before setting up the application:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/mern-blog-application.git
+git clone https://github.com/rakshit2208/Quleep-Assignment.git
 cd mern-blog-application
