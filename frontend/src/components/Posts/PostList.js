@@ -3,7 +3,10 @@ import { getPosts } from "../../services/api";
 import { Link } from "react-router-dom";
 import Navbar from "../../common/Header";
 
+// local api url
 // const API_URL = "http://localhost:5000";
+
+// deployed api url
 const API_URL = "https://mern-blog-apis.vercel.app";
 
 

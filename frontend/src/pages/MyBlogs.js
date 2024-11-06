@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { deletePost, getMyPosts } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+
+// local api url
 // const API_URL = "http://localhost:5000";
+
+// deployed api url
 const API_URL = "https://mern-blog-apis.vercel.app";
 
 

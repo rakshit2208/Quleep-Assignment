@@ -1,7 +1,10 @@
 // src/services/api.js
 import axios from "axios";
 
+// local api url
 // const API_URL = "http://localhost:5000/api";
+
+// deployed api url
 const API_URL = "https://mern-blog-apis.vercel.app/api";
 
 

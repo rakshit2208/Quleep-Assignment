@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import { updateProfile, fetchUserProfile } from "../services/api"; // Import fetchUserProfile to get user data
 import toast, { Toaster } from "react-hot-toast";
 
+// local api url
 // const API_URL = "http://localhost:5000";
+
+
+// deployed api url
 const API_URL = "https://mern-blog-apis.vercel.app";
 
 
